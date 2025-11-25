@@ -1,0 +1,27 @@
+{
+    "id": "D377790E",
+    "path": "X:/Shared drives/_CDPHE TEEO Data/_Enviro/PFAS/PFAS_Map_Series/PFAS_Map_Series_R/02_Scripts/Permits_Dewatering_Data_Monitoring_Reports_GW_WW.R",
+    "project_path": "02_Scripts/Permits_Dewatering_Data_Monitoring_Reports_GW_WW.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1764113912090.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "441,18",
+        "scrollLine": "431"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1764114510,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1764114510774,
+    "read_only": false,
+    "read_only_alternatives": []
+}
