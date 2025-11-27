@@ -272,8 +272,7 @@ DMR_Unique$Result <- as.numeric(DMR_Unique$Result)
 
 
 
-# Round results column to 2 decimal place
-# Round the 'Value' column to 1 decimal place
+# Round results column to 1 decimal place
 DMR_Unique$Result <- round(DMR_Unique$Result, digits = 1)
 
 
