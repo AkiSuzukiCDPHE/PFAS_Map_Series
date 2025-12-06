@@ -1,4 +1,5 @@
 # PERMITS - DATA MONITORING REPORTS.
+#Groundwater
 
 
 # 1: Importing the data ####
@@ -431,8 +432,8 @@ wide_data_DMR5  <- wide_data_DMR4  %>% select(-`Total PFOA and PFOS`)
 
 
 # Subset wastewater and groundwater
-UpdateDate_Permits_DMR_Groundwater <- wide_data_DMR5 %>% filter(Notes == "General Permit Covered Facility")
-UpdateDate_Permits_DMR_Wastewater <- wide_data_DMR5 %>% filter(Notes == "NPDES Individual Permit")
+Permits_DMR_Groundwater_Date <- wide_data_DMR5 %>% filter(Notes == "General Permit Covered Facility")
+Permits_DMR_Wastewater_Date <- wide_data_DMR5 %>% filter(Notes == "NPDES Individual Permit")
 
 # 11: Exporting ####
 
@@ -441,11 +442,11 @@ UpdateDate_Permits_DMR_Wastewater <- wide_data_DMR5 %>% filter(Notes == "NPDES I
 library("writexl")
 
 write_xlsx(
-  Update_DatePermits_DMR_Groundwater,
-  "X:\\Shared drives\\_CDPHE TEEO Data\\_Enviro\\PFAS\\PFAS Concentration Map May 2024 Update\\PFASMap 2024_RProject\\03_Clean_Data\\Groundwater\\DMR_GW_test_new.xlsx"
+  Permits_DMR_Groundwater_Date,
+  "03_Clean_Data/Groundwater/Permits_DMR_Groundwater_Date.xlsx"
 )
 
 write_xlsx(
-  UpdateDate_Permits_DMR_Wastewater,
-  "X:\\Shared drives\\_CDPHE TEEO Data\\_Enviro\\PFAS\\PFAS Concentration Map May 2024 Update\\PFASMap 2024_RProject\\03_Clean_Data\\Wastewater\\DMR_Wastewater.xlsx"
+  Permits_DMR_Wastewater_Date,
+  "03_Clean_Data/Groundwater/Permits_DMR_Wastewater_Date.xlsx"
 )
