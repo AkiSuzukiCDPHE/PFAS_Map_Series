@@ -8,9 +8,11 @@ library(readxl)
 library(dplyr)
 
 
+getwd()
+
 # Importing data
 DMR_RawData <- read_excel(
-  "X:\\Shared drives\\_CDPHE TEEO Data\\_Enviro\\PFAS\\PFAS Concentration Map May 2024 Update\\PFASMap 2024_RProject\\01_Raw_Data\\DMR Data Report PFAS 20240701.xlsx"
+  "01_Raw_Data/Ongoing_Data_Collection/2025_Permits_DMR_ 20251210.xlsx"
 )
 
 
@@ -43,16 +45,17 @@ DMR_RawData_1 <- DMR_RawData %>%
 # Delete any observations with NODI codes other than NODI B
 Codes_Delete <- c(
   "NODI C",
+  "NODI A",
   "NODI **E**",
+  "NODI **p**",
   "NODI 7",
   "NODI 9" ,
-  "NODI **P**",
   "NODI **8**",
   "NODI N",
   "NODI 2",
   "NODI 3",
-  "NODI F"
-)
+  "NODI F",
+  "NODI T")
 
 # remove values of concentration 2 that are = "NODI C", "NODI **E**", "NODI 7", "NODI 9" ,"NODI **P**", or "NODI **8**"
 DMR_RawData_2  <- DMR_RawData_1 %>%
@@ -60,6 +63,8 @@ DMR_RawData_2  <- DMR_RawData_1 %>%
 
 DMR_RawData_3  <- DMR_RawData_2 %>%
   filter(!Concentration_3 %in% Codes_Delete)
+
+unique(DMR_RawData_3$Concentration_3)
 
 
 # Create a variable with PFAS abbreviations called PFAS_Analyte

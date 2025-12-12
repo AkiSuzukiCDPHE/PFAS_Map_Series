@@ -234,11 +234,14 @@ PFOS_FCA_SurfaceWater_2023 <- PFOS_FCA_Sed_SW_2023_Wide4 %>% filter (Medium ==
 # Export Datasets
 library("writexl")
 
+
+getwd()
+
 write_xlsx(
   PFOS_FCA_Sediment_2023,
-  "X:\\Shared drives\\_CDPHE TEEO Data\\_Enviro\\PFAS\\PFAS Concentration Map May 2024 Update\\PFASMap 2024_RProject\\03_Clean_Data\\Surface Water\\PFOS_FCA_Sediment_2023.xlsx"
+  "03_Clean_Data/Sediment/PFOS_FCA_Sediment_2023.xlsx"
 )
 write_xlsx(
   PFOS_FCA_SurfaceWater_2023,
-  "X:\\Shared drives\\_CDPHE TEEO Data\\_Enviro\\PFAS\\PFAS Concentration Map May 2024 Update\\PFASMap 2024_RProject\\03_Clean_Data\\Sediment\\PFOS_FCA_SurfaceWater_2023.xlsx"
+  "03_Clean_Data/SurfaceWater/PFOS_FCA_SurfaceWater_2023.xlsx"
 )

@@ -24,8 +24,9 @@ RCRA_Raw$Date_Max <- as.Date(RCRA_Raw$Date_Max, format = "%m/%d/%Y")
 PFAS_Analytes <- c("Max_PFOS_and_PFOA","Max_PFOS","Max_PFOA","Max_PFBS","Max_GenX","Max_PFHxS","Max_PFDA","Max_PFNA")
 
 # Reclassify all PFAS analytes as numeric variables
+# Reclassify all PFAS analytes as numeric variables and round to 1 decimal place
 RCRA_Clean <- RCRA_Raw %>%
-  mutate_at(vars(all_of(PFAS_Analytes)), ~ifelse(is.na(.), NA, as.numeric(.)))
+  mutate_at(vars(all_of(PFAS_Analytes)), ~ifelse(is.na(.), NA, round(as.numeric(.), 1)))
 
 # Replacing blanks with "0" because blank representst ND
 RCRA_Clean <- RCRA_Clean %>%
