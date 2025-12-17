@@ -107,9 +107,8 @@ library(dplyr)
 
 # Transpose the aggregated data into wide format. 
 
-# # Try using all variables as id_cols
-# You should remove any column from id_cols that is specific to the result
-#(like detection limit, units, qualifier) and only keep the columns that define the unique sample.
+# You should remove any column from id_cols that is specific to the result for a specific analyte
+#(like detection limit, qualifier) and only keep the columns that define the unique sample.
 # #check for val_result=NA
 ECMC_Results_Wide <- ECMC_Results5 %>%
   pivot_wider(
@@ -119,9 +118,9 @@ ECMC_Results_Wide <- ECMC_Results5 %>%
       "Longitude83",
       "Sample Date",
       "SampleID",
-      "Units",
       "Matrix",
-      "Sample Reason"
+      "Sample Reason",
+      "Units"
     ),
     names_from = ParamAbbreviation,
     values_from = ResultValue
@@ -153,16 +152,86 @@ ECMC_Results_Wide1 <- ECMC_Results_Wide %>%
   select(-Matrix) 
  
 
+# 4: Reorder variables ####
+
+# Create a character vector containing the EXACT column names in the desired order.
+desired_order <- c(
+  "Dataset",
+  "Program",
+  "Medium",
+  "Site",
+  "Latitude",
+  "Longitude",
+  "Link",
+  "Notes",
+  "Sample date",
+  "Number of samples",
+  "Units",
+  "Sum of PFOA and PFOS",
+  "PFOA",
+  "PFOS",
+  "PFHxS",
+  "PFNA",
+  "PFBS"
+)
+
+
+
+# Reorder variables using the select function
+ECMC_Results_Wide2 <- ECMC_Results_Wide1 |> select(all_of(desired_order), everything())
 
 
 
 
 
 
+# 5: Assign variable types ####
+
+glimpse(DoD_Clean2)
+
+# Define the groups of columns based on your data dictionary
+char_cols <- c("Dataset",
+               "Program",
+               "Medium",
+               "Site",
+               "Link",
+               "Notes",
+               "Units")
+
+numeric_cols <- c("Latitude", "Longitude", "Number of samples")
+
+date_cols <- c("Sample date") # Note the date format is MM/DD/YYYY
+
+# Apply the transformations using mutate() and across()
+ECMC_Results_Wide3 <- ECMC_Results_Wide2 %>%
+  # 1. Convert Character Columns
+  mutate(across(.cols = all_of(char_cols), .fns = as.character)) %>%
+  
+  # 2. Convert Numeric Columns
+  mutate(across(.cols = all_of(numeric_cols), .fns = as.numeric)) %>%
+  
+  # 3. Convert Date Columns
+  mutate(across(
+    .cols = all_of(date_cols),
+    # Specify the format: %m = Month, %d = Day, %Y = 4-digit Year
+    .fns = ~ as.Date(., format = "%m/%d/%Y")
+  ))
 
 
+# Ensure the sample date column is formatted as a date
+
+ECMC_Results_Wide3 <- ECMC_Results_Wide3 %>%
+  mutate(
+    `Sample date` = as.Date(`Sample date`, format = "%m/%d/%Y")
+  )
+
+class(ECMC_Results_Wide3$`Sample date`)
+
+
+
+ECMC_Groundwater <- ECMC_Results_Wide3
 
 
 # # # Exporting the data to look at it
 library(writexl)
-write_xlsx(Cleaned_ECMC, "02_Raw_Data/Cleaned_ECMC.xlsx")
+write_xlsx(ECMC_Groundwater, "03_Clean_Data/ECMC_Groundwater_2025.xlsx")

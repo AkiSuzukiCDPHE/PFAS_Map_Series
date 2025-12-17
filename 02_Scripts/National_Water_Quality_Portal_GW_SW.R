@@ -60,7 +60,7 @@ WQP_Wells_Merged <- WQP_Wells_Merged |> mutate(
 
 
 # Remove extraneous variables for the wells dataset
-WQP_Wells_Merged_1 <- WQP_Wells_Merged |> select(
+WQP_Wells_Merged_0 <- WQP_Wells_Merged |> select(
   c(
     OrganizationFormalName,
     ActivityTypeCode,
@@ -90,6 +90,13 @@ WQP_Wells_Merged_1 <- WQP_Wells_Merged |> select(
 
 
 
+class(WQP_Wells_Merged_1$`DetectionQuantitationLimitMeasure/MeasureValue`)
+
+# Filter out really high detection limits (> 15 ng/L)
+WQP_Wells_Merged_0$`DetectionQuantitationLimitMeasure/MeasureValue` <- as.numeric(WQP_Wells_Merged_0$`DetectionQuantitationLimitMeasure/MeasureValue`) 
+
+
+WQP_Wells_Merged_1 <- WQP_Wells_Merged_0 |>  filter(!`DetectionQuantitationLimitMeasure/MeasureValue`>15)
 
 # Create a new column for PFAS_Abbrev
 library(dplyr)
@@ -335,16 +342,95 @@ WQP_Wells_Merged_9 <- WQP_Wells_Merged_8 %>%
 
 
 
+# Rename the PFAS analytes
+
+library(dplyr)
+
+
+# Assuming your data frame is named 'df'
+WQP_Wells_Merged_10 <- WQP_Wells_Merged_9 %>%
+  mutate(
+    PFAS_Abbrev_1 = case_when(
+      PFAS_Abbrev == "NMeFOSAA" ~ "NMeFOSAA",
+      PFAS_Abbrev == "NEtFOSAA" ~ "NEtFOSAA",
+      PFAS_Abbrev == "11Cl-PF3OUdS" ~ "11Cl-PF3OUdS",
+      PFAS_Abbrev == "Fluorotelomer sulfonate 4:2" ~ "4:2 FTS",
+      PFAS_Abbrev == "1-Octanesulfonic acid, 3,3,4,4,5,5,6,6,7,7,8,8,8-tridecafluoro-" ~ "6:2 FTS",
+      PFAS_Abbrev == "Fluorotelomer sulfonate 8:2" ~ "8:2 FTS",
+      PFAS_Abbrev == "9Cl-PF3ONS" ~ "9Cl-PF3ONS",
+      PFAS_Abbrev == "4,8-dioxa-3H-perfluorononanoate" ~ "ADONA",
+      PFAS_Abbrev == "Perfluoro(2-propoxypropanoate)" ~ "PFPrOPrA",
+      PFAS_Abbrev == "PFBA" ~ "PFBA",
+      PFAS_Abbrev == "PFBS" ~ "PFBS",
+      PFAS_Abbrev == "PFDA" ~ "PFDA",
+      PFAS_Abbrev == "PFDoDA" ~ "PFDoDA",
+      PFAS_Abbrev == "Perfluorodecanesulfonate" ~ "PFDS",
+      PFAS_Abbrev == "PFHpA" ~ "PFHpA",
+      PFAS_Abbrev == "PFHpS" ~ "PFHpS",
+      PFAS_Abbrev == "PFHxA" ~ "PFHxA",
+      PFAS_Abbrev == "PFNA" ~ "PFNA",
+      PFAS_Abbrev == "Perfluorononanesulfonate" ~ "PFNS",
+      PFAS_Abbrev == "PFOA" ~ "PFOA",
+      PFAS_Abbrev == "PFOS" ~ "PFOS",
+      PFAS_Abbrev == "PFPeA" ~ "PFPeA",
+      PFAS_Abbrev == "PFPeS" ~ "PFPeS",
+      PFAS_Abbrev == "PFTeDA" ~ "PFTeDA",
+      PFAS_Abbrev == "PFTrDA" ~ "PFTrDA",
+      PFAS_Abbrev == "PFUnDA" ~ "PFUnDA",
+      PFAS_Abbrev == "Perfluorovaleric acid" ~ "PFPeA",
+      PFAS_Abbrev == "PFHxS" ~ "PFHxS",
+      PFAS_Abbrev == "Perfluorooctanoic acid" ~ "PFOA",
+      PFAS_Abbrev == "Perfluorooctane sulfonic acid" ~ "PFOS",
+      PFAS_Abbrev == "N-EtFOSA" ~ "N-EtFOSA",
+      PFAS_Abbrev == "N-Ethyl-N-(2-hydroxyethyl)perfluorooctanesulfonamide" ~ "NEtFOSE",
+      PFAS_Abbrev == "Perfluoro-1-nonanesulfonic acid" ~ "PFNS",
+      PFAS_Abbrev == "Potassium 9-chlorohexadecafluoro-3-oxanonane-1-sulfonate" ~ "9ClPF3ONS",
+      PFAS_Abbrev == "N-ethyl perfluorooctanesulfonamidoacetic acid" ~ "NEtFOSAA",
+      PFAS_Abbrev == "1-Decanesulfonic acid, 1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,10-heneicosafluoro-" ~ "PFDS",
+      PFAS_Abbrev == "2-(N-methylperfluoro-1-octanesulfonamido)-ethanol" ~ "N-MeFOSE",
+      PFAS_Abbrev == "ADONA" ~ "ADONA",
+      PFAS_Abbrev == "Perfluorododecanesulfonic acid" ~ "PFDoS",
+      PFAS_Abbrev == "N-methyl perfluorooctanesulfonamidoacetic acid" ~ "NMeFOSAA",
+      PFAS_Abbrev == "GenX" ~ "GenX",
+      PFAS_Abbrev == "11-chloroeicosafluoro-3-oxaundecane-1-sulfonic acid" ~ "11Cl-PF3OUdS",
+      PFAS_Abbrev == "6:2 FTS" ~ "6:2 FTS",
+      PFAS_Abbrev == "NMeFOSA" ~ "NMeFOSA",
+      PFAS_Abbrev == "1-Heptanesulfonic acid, 1,1,2,2,3,3,4,4,5,5,6,6,7,7,7-pentadecafluoro-" ~ "PFHpS",
+      PFAS_Abbrev == "Perfluoro-3,6-dioxaheptanoic acid" ~ "PFDHA",
+      PFAS_Abbrev == "Octanoic acid, 4,4,5,5,6,6,7,7,8,8,8-undecafluoro-" ~ "5:3 FTCA",
+      PFAS_Abbrev == "Decanoic acid, 4,4,5,5,6,6,7,7,8,8,9,9,10,10,10-pentadecafluoro-" ~ "7:3 FTCA",
+      PFAS_Abbrev == "Sodium Perfluorononanesulfonate" ~ "PFNS",
+      PFAS_Abbrev == "9-Chlorohexadecafluoro-3-oxanone-1-sulfonic acid" ~ "9ClPF3ONS",
+      PFAS_Abbrev == "Perfluoro(4-methoxybutanoic) acid" ~ "PFMBA",
+      PFAS_Abbrev == "1-Hexanesulfonic acid, 3,3,4,4,5,5,6,6,6-nonafluoro-***retired***use Fluorotelomer sulfonate 4:2" ~ "4:2 FTS",
+      PFAS_Abbrev == "Perfluoro(2-ethoxyethane)sulfonic acid" ~ "PFEESA",
+      PFAS_Abbrev == "Perfluoro-3-methoxypropanoic acid" ~ "PFMPA",
+      PFAS_Abbrev == "Hexanoic acid, 4,4,5,5,6,6,6-heptafluoro-***retired***use 3:3 Fluorotelomer carboxylic acid" ~ "3:3FTCA",
+      PFAS_Abbrev == "Perfluoro-1-dodecanesulfonate" ~ "PFDoS",
+      PFAS_Abbrev == "1-Hexanesulfonic acid, 1,1,2,2,3,3,4,4,5,5,6,6,6-tridecafluoro-, ion(1-)" ~ "PFHxS",
+      PFAS_Abbrev == "3:3 Fluorotelomer carboxylic acid" ~ "3:3FTCA",
+      # Default condition: if no match is found, keep the original value
+      TRUE ~ PFAS_Abbrev
+    )
+  )
+
+
+WQP_Wells_Merged_10 <- WQP_Wells_Merged_10 %>% filter(
+  !PFAS_Abbrev_1 %in% c(
+    "1-Octanesulfonamide, 1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,8-heptadecafluoro-N-methyl-, reaction products with benzene-chlorine-sulfur chloride (S2Cl2) reaction products chlorides",
+    "Octadecanoic acid, pentatriacontafluoro-",
+    "Perfluoropalmitic acid"
+  )
+)
+
+PFAS <- as.data.frame(unique(WQP_Wells_Merged_10$PFAS_Abbrev_1))
 
 
 # Section 7: Transpose the dataset #####
 
 
-
-str(WQP_Wells_Merged_9)
-
 # Before transposing making sure there are not duplicates
-WQP_Wells_Merged_10 <- WQP_Wells_Merged_9 %>%
+WQP_Wells_Merged_11 <- WQP_Wells_Merged_10 %>%
   group_by(
     Program,
     Dataset,
@@ -357,7 +443,7 @@ WQP_Wells_Merged_10 <- WQP_Wells_Merged_9 %>%
     `Sample date`, 
     Medium, 
     Units, 
-    PFAS_Abbrev,
+    PFAS_Abbrev_1,
     `Number of samples` ,
     Link
     
@@ -370,13 +456,13 @@ WQP_Wells_Merged_10 <- WQP_Wells_Merged_9 %>%
   
 
 # Check if there are still duplicates
-duplicates <- WQP_Wells_Merged_10 |>
-  summarise(n = n(), .by = c(`Sample ID`, PFAS_Abbrev)) |>
+duplicates <- WQP_Wells_Merged_11 |>
+  summarise(n = n(), .by = c(`Sample ID`, PFAS_Abbrev_1)) |>
   filter(n > 1)
 
 # Remove any column from id_cols that is specific to the result for a specific analyte
 #(like detection limit, qualifier) and only keep the columns that define the unique sample.
-WQP_Wide <- WQP_Wells_Merged_10 %>%
+WQP_Wide <- WQP_Wells_Merged_11 %>%
   pivot_wider(
     id_cols = c(
      Latitude,
@@ -394,7 +480,7 @@ WQP_Wide <- WQP_Wells_Merged_10 %>%
      `Sample ID`
      
     ),
-    names_from = PFAS_Abbrev,
+    names_from = PFAS_Abbrev_1,
     values_from = Result
   )
 
