@@ -9,7 +9,7 @@ library(dplyr)
 options(scipen=999)
 
 # Importing Data
-DoD_Raw <- read_excel("X:\\Shared drives\\_CDPHE TEEO Data\\_Enviro\\PFAS\\PFAS Concentration Map May 2024 Update\\PFASMap 2024_RProject\\01_Raw_Data\\DOD On Base Sampling V.October2023.xlsx")
+DoD_Raw <- read_excel("X:\\Shared drives\\_CDPHE TEEO Data\\_Enviro\\PFAS\\PFAS Concentration Map May 2024 Update\\PFASMap 2024_RProject\\01_Raw_Data\\DOD On Base Sampling V.December2025.xlsx")
 
 
 # 2: Cleaning the data ####
@@ -38,7 +38,7 @@ DoD_Clean1 <- DoD_Clean %>%
     PFOA = PFOA_Max,
     PFOS = PFOS_Max,
     PFHxS = Max_PFHxS,
-    GenX = Max_GenX,
+    `HFPO-DA` = Max_GenX,
     PFDA = Max_PFDA,
     PFNA = Max_PFNA
   ) %>%
@@ -75,7 +75,7 @@ desired_order <- c(
   "PFHxS",
   "PFNA",
   "PFBS",
-  "GenX"
+  "HFPO-DA"
 )
 
 
@@ -137,7 +137,7 @@ class(DoD_Clean2$`Sample date`)
 
 # Create vector of PFAS analytes
 
-PFAS_Analytes <- c("Sum of PFOA and PFOS","PFOS","PFOA","PFBS","GenX","PFHxS","PFDA","PFNA")
+PFAS_Analytes <- c("Sum of PFOA and PFOS","PFOS","PFOA","PFBS","HFPO-DA","PFHxS","PFDA","PFNA")
 
 # Reclassify all PFAS analytes as numeric variables and round to 1 decimal place
 DoD_Clean4 <- DoD_Clean3 %>%

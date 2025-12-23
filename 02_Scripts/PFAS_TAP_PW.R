@@ -51,7 +51,6 @@ unique(PFAS_TAP_Pilot_ND_1$ANALYTE_NAME)
 
 # Transposing the pilot data from long to wide
 
-
 PFAS_TAP_Pilot_ND_2 <- PFAS_TAP_Pilot_ND_1 |>
   mutate(
     ANALYTE_NAME = case_when(
@@ -91,6 +90,7 @@ unique(PFAS_TAP_Pilot_ND_2$ANALYTE_NAME)
 
 All_Analytes <- c(
   "FBSA",
+  "4:2 FTS",
   "10:2_FTCA",
   "3:3FTCA",
   "5:3FTCA",
@@ -129,9 +129,7 @@ All_Analytes <- c(
   "PFDoS",
   "Cl-PFOS",
   "FHpSA",
-  "4:2_FTS",
   "PFDA",
-  "FOSA",
   "FHxSA",
   "N-MeFOSA",
   "N-EtFOSA",
@@ -166,7 +164,7 @@ PFAS_TAP_Pilot_Wide_1 <- PFAS_TAP_Pilot_Wide |>
 library(readxl)
 library(dplyr)
 
-# : Importing the pilot effort data
+# : Importing the data
 
 # When you perform the final update, vlookup the lat and longs form the PFAS tap append here datasheet using the tap ID
 PFAS_TAP_Expansion <- read_excel("01_Raw_Data/Ongoing_Data_Collection/2025_PFAS_TAP_Expansion_12152015.xlsx")
@@ -270,7 +268,7 @@ PFAS_TAP_Expansion_3 <- PFAS_TAP_Expansion_2 |>
 
 # round the columns to one decimal
 PFAS_TAP_Expansion_4 <- PFAS_TAP_Expansion_3 |>
-  mutate(across(PFAS_Columns, ~ round(., 1)))
+  mutate(across(PFAS_Columns, ~ round(., 1))) |>  rename(`4:2 FTS`= `4:2FTS`)
 
 
 # 6: Merging the expansion data and pilot data ####
@@ -353,9 +351,39 @@ PFAS_TAP_All_4 <- PFAS_TAP_All_3 %>%
   ))
 
 
+library(dplyr)
+
+PFAS_TAP_All_5 <- PFAS_TAP_All_4 %>% rename(
+  # Standardizing duplicates and fixing syntax
+  `3:3 FTCA`      = `3:3FTCA`,
+  `6:8 PFPi`      = `6:8PFPi`,
+  `NEtFOSA`      = `N-EtFOSA`,   
+  `NMeFOSAA`     = `N-MeFOSAA`,
+  `10:2 UFTCA`    = `10:2_UFTCA`,
+  `7:3 FTCA`      = `7:3FTCA`,
+  `NEtFOSAA`     = `N-EtFOSAA`,
+  `6:2 FTCA`      = `6:2_FTCA`,
+  `HFPO-DA`          = `GenX`,      
+  `5:3 FTCA`      = `5:3FTCA`,
+  `8:2 FTS`       = `8:2FTS`,
+  `6:2 UFTCA`     = `6:2_UFTCA`,
+  `10:2 FTS`      = `10:2FTS`,
+  `6:2 FTS`       = `6:2FTS`,
+  `8:8 PFPi`      = `8:8PFPi`,
+  `10:2 FTCA`     = `10:2_FTCA`,
+  `8:2 FTCA`      = `8:2_FTCA`,  
+  `11Cl-PF3OUdS`  = `11CL-PF3OUdS`,
+  `6:6 PFPi`      = `6:6PFPi`,
+  `8Cl-PFOS`      = `8Cl-PFOS`,
+  `NMeFOSA`      = `N-MeFOSA`,
+  `8:2 UFTCA`     = `8:2_UFTCA`
+)
+
+
+
 # Ensure the sample date column is formatted as a date
 
-PFAS_TAP_PW_121525 <- PFAS_TAP_All_4 %>%
+PFAS_TAP_PW_121525 <- PFAS_TAP_All_5 %>%
   mutate(`Sample date` = as.Date(`Sample date`, format = "%m/%d/%Y"))
 
 class(PFAS_TAP_All_5$`Sample date`)
@@ -371,3 +399,4 @@ getwd()
 
 write_xlsx(PFAS_TAP_PW_121525,
            "03_Clean_Data/PrivateWell/PFAS_TAP_PW_121525.xlsx")
+

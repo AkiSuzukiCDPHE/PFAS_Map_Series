@@ -74,9 +74,9 @@ ECMC_Results4 <- ECMC_Results3 |> mutate(ResultValue = (if_else(
 # Adding a new column for PFAS analyte
 ECMC_Results5 <- ECMC_Results4 |> 
   mutate(ParamAbbreviation = case_when(
-    ParamDescription == "Perfluoroundecanoic acid" ~ "PFUDA",
+    ParamDescription == "Perfluoroundecanoic acid" ~ "PFUnA",
     ParamDescription == "Perfluorotridecanoic acid" ~ "PFTrDA",
-    ParamDescription == "Perfluorotetradecanoic acid" ~ "PFTDA",
+    ParamDescription == "Perfluorotetradecanoic acid" ~ "PFTeDA",
     ParamDescription == "Perfluoropentanoic acid" ~ "PFPeA",
     ParamDescription == "Perfluoropentanesulfonic acid" ~ "PFPeS",
     ParamDescription == "Perfluorooctanoic acid" ~ "PFOA",
@@ -165,6 +165,7 @@ desired_order <- c(
   "Link",
   "Notes",
   "Sample date",
+  "Sample ID",
   "Number of samples",
   "Units",
   "Sum of PFOA and PFOS",
@@ -187,7 +188,7 @@ ECMC_Results_Wide2 <- ECMC_Results_Wide1 |> select(all_of(desired_order), everyt
 
 # 5: Assign variable types ####
 
-glimpse(DoD_Clean2)
+
 
 # Define the groups of columns based on your data dictionary
 char_cols <- c("Dataset",
@@ -195,6 +196,7 @@ char_cols <- c("Dataset",
                "Medium",
                "Site",
                "Link",
+               "Sample ID",
                "Notes",
                "Units")
 
@@ -234,4 +236,5 @@ ECMC_Groundwater <- ECMC_Results_Wide3
 
 # # # Exporting the data to look at it
 library(writexl)
-write_xlsx(ECMC_Groundwater, "03_Clean_Data/ECMC_Groundwater_2025.xlsx")
+write_xlsx(ECMC_Groundwater, "03_Clean_Data/Groundwater/ECMC_Groundwater_2025.xlsx")
+

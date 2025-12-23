@@ -23,6 +23,7 @@ DMR_RawData <- read_excel(
 # Replace all spaces in names of variables with underscores
 names(DMR_RawData) <- gsub("\\s", "_", names((DMR_RawData)))
 
+
 # Change ug/L units to ng/L because the ug/L entries were a typo
 DMR_RawData <- DMR_RawData %>% mutate(
   Concentration_Units = case_when(
@@ -68,7 +69,7 @@ unique(DMR_RawData_3$Concentration_3)
 
 
 # Create a variable with PFAS abbreviations called PFAS_Analyte
-# Add PFOA
+
 
 DMR_RawData_3 <- DMR_RawData_3 %>%
   mutate(
@@ -88,7 +89,7 @@ DMR_RawData_3 <- DMR_RawData_3 %>%
       Parameter %in% c("Perfluoropentane sulfonic acid") ~ "PFPeS",
       Parameter %in% c("Perfluoroheptanesulfonic acid") ~ "PFHpS",
       Parameter %in% c("4,8-Dioxa-3H-perfluorononanoic acid") ~ "ADONA",
-      Parameter %in% c("Hexafluoropropylene oxide dimer acid") ~ "GenX",
+      Parameter %in% c("Hexafluoropropylene oxide dimer acid") ~ "HFPO-DA",
       Parameter %in% c("Perfluorodecanoic acid") ~ "PFDA",
       Parameter %in% c("Perfluoropentanoic acid") ~ "PFPeA",
       Parameter %in% c("Perfluorooctanoic Acid") ~ "PFOA",
@@ -106,14 +107,14 @@ DMR_RawData_3 <- DMR_RawData_3 %>%
       Parameter %in% c("Perfluoro-2-methoxypropanoic acid") ~ "PFMPA",
       Parameter %in% c("11-Chloroeicosafluoro-3-oxaundecane-1-sulfonic Acid") ~ "11Cl-PF3OUdS",
       Parameter %in% c("Potassium 11-chloroeicosafluoro-3-oxaundecane-1-sulfonate") ~ "11Cl-PF3OUdS",
-      Parameter %in% c("4:2 Fluorotelomer sulfonic acid") ~ "4:2FTS",
-      Parameter %in% c("6:2 Fluorotelomer sulfonic acid") ~ "6:2FTS",
-      Parameter %in% c("3-Perfluoropropyl propanoic acid") ~ "3:3FTCA",
-      Parameter %in% c("8:2 Fluorotelomer sulfonic acid") ~ "8:2FTS",
+      Parameter %in% c("4:2 Fluorotelomer sulfonic acid") ~ "4:2 FTS",
+      Parameter %in% c("6:2 Fluorotelomer sulfonic acid") ~ "6:2 FTS",
+      Parameter %in% c("3-Perfluoropropyl propanoic acid") ~ "3:3 FTCA",
+      Parameter %in% c("8:2 Fluorotelomer sulfonic acid") ~ "8:2 FTS",
       Parameter %in% c("N-methylperfluorooctane Sulfonamidoethanol") ~ "NMeFOSE",
       Parameter %in% c("N-ethylperfluorooctane Sulfonamidoethanol") ~ "NEtFOSE",
-      Parameter %in% c("3-Perfluoroheptyl propanoic acid") ~ "7:3FTCA",
-      Parameter %in% c("2H,2H,3H,3H-Perfluorooctanoic acid") ~ "5:3FTCA",
+      Parameter %in% c("3-Perfluoroheptyl propanoic acid") ~ "7:3 FTCA",
+      Parameter %in% c("2H,2H,3H,3H-Perfluorooctanoic acid") ~ "5:3 FTCA",
       TRUE ~ Parameter
     )
   )
@@ -138,7 +139,7 @@ DMR_RawData_4 <- DMR_RawData_3 %>%
       PFAS_Analyte == "PFPeS" ~ 0.50,
       PFAS_Analyte == "PFHpS" ~ 0.50,
       PFAS_Analyte == "ADONA" ~ 0.50,
-      PFAS_Analyte == "GenX" ~ 0.51,
+      PFAS_Analyte == "HFPO-DA" ~ 0.51,
       PFAS_Analyte == "PFDA" ~ 0.52,
       PFAS_Analyte == "PFPeA" ~ 0.54,
       PFAS_Analyte == "PFOA" ~ 0.54,
@@ -155,14 +156,14 @@ DMR_RawData_4 <- DMR_RawData_3 %>%
       PFAS_Analyte == "PFMBA" ~ 1.41,
       PFAS_Analyte == "PFMPA" ~ 1.46,
       PFAS_Analyte == "11Cl-PF3OUdS" ~ 1.67,
-      PFAS_Analyte == "4:2FTS" ~ 1.69,
-      PFAS_Analyte == "6:2FTS" ~ 2.45,
-      PFAS_Analyte == "3:3FTCA" ~ 2.47,
-      PFAS_Analyte == "8:2FTS" ~ 2.50,
+      PFAS_Analyte == "4:2 FTS" ~ 1.69,
+      PFAS_Analyte == "6:2 FTS" ~ 2.45,
+      PFAS_Analyte == "3:3 FTCA" ~ 2.47,
+      PFAS_Analyte == "8:2 FTS" ~ 2.50,
       PFAS_Analyte == "NMeFOSE" ~ 3.81,
       PFAS_Analyte == "NEtFOSE" ~ 4.84,
-      PFAS_Analyte == "7:3FTCA" ~ 8.71,
-      PFAS_Analyte == "5:3FTCA" ~ 9.59
+      PFAS_Analyte == "7:3 FTCA" ~ 8.71,
+      PFAS_Analyte == "5:3 FTCA" ~ 9.59
     )
   )
 
@@ -423,7 +424,7 @@ desired_order <- c(
   "PFHxS",
   "PFNA",
   "PFBS",
-  "GenX"
+  "HFPO-DA"
 )
 
 

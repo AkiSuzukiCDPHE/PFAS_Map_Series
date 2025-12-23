@@ -38,12 +38,6 @@ NorgePFASdata1$MDL <- as.numeric(NorgePFASdata1$MDL)
 
 table(NorgePFASdata1$PFAS_Analyte)
 
-# Changing HFPO_DA to GenX
-NorgePFASdata1 <- NorgePFASdata1 %>%
-  mutate(PFAS_Analyte = case_when(
-    PFAS_Analyte == "HFPO-DA" ~ "GenX",
-    TRUE ~ PFAS_Analyte  # Keep the original value if no match
-  ))
 
 
 # 3: Importing Data for TGap #### 
@@ -74,19 +68,18 @@ TGapPFASdata1 <-TGapPFASdata %>%
 TGapPFASdata1$Result <- as.numeric(TGapPFASdata1$Result)
 
 
-# Changing HFPO_DA to GenX
-TGapPFASdata1 <- TGapPFASdata1 %>%
-  mutate(PFAS_Analyte = case_when(
-    PFAS_Analyte == "HFPO-DA" ~ "GenX",
-    TRUE ~ PFAS_Analyte  # Keep the original value if no match
-  ))
-
 # 5: Binding data from multiple sites#### 
 
 
 # Binding the two dry cleaning datasets together
-Dry_Cleaning_PASI<- bind_rows(TGapPFASdata1, NorgePFASdata1)
+Dry_Cleaning_PASI <- bind_rows(TGapPFASdata1, NorgePFASdata1)
 
+# Rename pfas analytes
+
+Dry_Cleaning_PASI <- Dry_Cleaning_PASI |> mutate(PFAS_Analyte=case_when(PFAS_Analyte == "PFUdA" ~ "PFUnA",
+                                                                        PFAS_Analyte == "PFDoA" ~ "PFDoDA",
+                                                                        PFAS_Analyte == "FOSA" ~ "PFOSA",
+                                                                        TRUE~PFAS_Analyte))
 
 # 6: Transform wide #### 
 
@@ -211,7 +204,7 @@ desired_order <- c(
   "PFHxS",
   "PFNA",
   "PFBS",
-  "GenX"
+  "HFPO-DA"
 )
 
 

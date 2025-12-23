@@ -9,7 +9,7 @@ library(tidyr)
 
 
 # Importing Data
-SourceWater_Raw <- read_excel("X:/Shared drives/_CDPHE TEEO Data/_Enviro/PFAS/PFAS Concentration Map May 2024 Update/PFASMap 2024_RProject/01_Raw_Data/Dewatering_SourceWater_May2024.xlsx")
+SourceWater_Raw <- read_excel("01_Raw_Data/Ongoing_Data_Collection/2024_Permits_SourceWater_May2024.xlsx")
 
 colnames(SourceWater_Raw)
 
@@ -145,7 +145,7 @@ Sourcewide1 <- Sourcewide1 %>%
 # 3: Merging with lat/longs ####
 
 # Importing the file with lats and longs
-SourceWater_LatLongs <- read_excel("X:/Shared drives/_CDPHE TEEO Data/_Enviro/PFAS/PFAS Concentration Map May 2024 Update/PFASMap 2024_RProject/01_Raw_Data/Dewatering_SourceWater_LatLongs.xlsx")
+SourceWater_LatLongs <- read_excel("01_Raw_Data/Ongoing_Data_Collection/2024_Permits_SourceWater_LatLongs.xlsx")
 
 
 SourceWater_LatLongs_unique <- SourceWater_LatLongs %>%
@@ -175,7 +175,8 @@ SourceWater1 <- Sourcewide_LatsLongs %>%
   rename(
     Site = Facility_Name,
     `Site ID` = Permit_Number,
-    `Sample date` = Sample_Date
+    `Sample date` = Sample_Date,
+    PFOSA =`PFOSA (or FOSA)`
   )
 
 
@@ -255,11 +256,11 @@ desired_order <- c(
 
 
 # Reorder variables using the select function
-UpdateDate_SourceWater_Clean_Groundwater<- SourceWater4 |> select(all_of(desired_order), everything())
+Permits_SourceWater_Groundwater <- SourceWater4 |> select(all_of(desired_order), everything())
 
 
 # 7: Export ####
 
 library("writexl")
-write_xlsx(UpdateDate_SourceWater_Clean_Groundwater,"X:\\Shared drives\\_CDPHE TEEO Data\\_Enviro\\PFAS\\PFAS Concentration Map May 2024 Update\\PFASMap 2024_RProject\\03_Clean_Data\\Groundwater\\SourceWater_Final_May24.xlsx")
+write_xlsx(Permits_SourceWater_Groundwater, "03_Clean_Data/Groundwater/Permits_Sourcewater_2025.xlsx")
 

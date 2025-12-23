@@ -90,7 +90,7 @@ WQP_Wells_Merged_0 <- WQP_Wells_Merged |> select(
 
 
 
-class(WQP_Wells_Merged_1$`DetectionQuantitationLimitMeasure/MeasureValue`)
+
 
 # Filter out really high detection limits (> 15 ng/L)
 WQP_Wells_Merged_0$`DetectionQuantitationLimitMeasure/MeasureValue` <- as.numeric(WQP_Wells_Merged_0$`DetectionQuantitationLimitMeasure/MeasureValue`) 
@@ -138,15 +138,15 @@ WQP_Wells_Merged_1 <- WQP_Wells_Merged_1 |>
       str_detect(CharacteristicName, "N-ethyl Perfluorooctane sulfonamide") ~ "NEtFOSA",
       str_detect(CharacteristicName, "2-(N-methylperfluoro-1-octanesulfonamido)-ethanol") ~ "NMeFOSE",
       str_detect(CharacteristicName, "N-Ethyl-N-(2-hydroxyethyl)perfluorooctanesulfonamide") ~ "NEtFOSE",
-      str_detect(CharacteristicName, "Perfluorooctanesulfonamide") ~ "FOSA",
+      str_detect(CharacteristicName, "Perfluorooctanesulfonamide") ~ "PFOSA",
       
       # --- Tier 4: Other specific / Branded compounds ---
-      str_detect(CharacteristicName, "Hexafluoropropylene oxide dimer acid") ~ "GenX",
+      str_detect(CharacteristicName, "Hexafluoropropylene oxide dimer acid") ~ "HFPO-DA",
       str_detect(CharacteristicName, "4,8-Dioxa-3H-perfluorononano(ate|ic acid)") ~ "ADONA",
       str_detect(CharacteristicName, "11-chloroeicosafluoro-3-oxaundecane-1-sulfonate") ~ "11Cl-PF3OUdS",
       str_detect(CharacteristicName, "9-Chlorohexadecafluoro-3-oxanonane-1-sulfonate") ~ "9Cl-PF3ONS",
       str_detect(CharacteristicName, "Perfluoro(2-propoxypropanoate)") ~ "PFPPrA",
-      str_detect(CharacteristicName, "Sulfluramid") ~ "N-EtFOSA",
+      str_detect(CharacteristicName, "Sulfluramid") ~ "NEtFOSA",
       
       # --- Default: If no match, keep the original name ---
       TRUE ~ CharacteristicName
@@ -376,22 +376,22 @@ WQP_Wells_Merged_10 <- WQP_Wells_Merged_9 %>%
       PFAS_Abbrev == "PFPeS" ~ "PFPeS",
       PFAS_Abbrev == "PFTeDA" ~ "PFTeDA",
       PFAS_Abbrev == "PFTrDA" ~ "PFTrDA",
-      PFAS_Abbrev == "PFUnDA" ~ "PFUnDA",
+      PFAS_Abbrev == "PFUnDA" ~ "PFUnA",
       PFAS_Abbrev == "Perfluorovaleric acid" ~ "PFPeA",
       PFAS_Abbrev == "PFHxS" ~ "PFHxS",
       PFAS_Abbrev == "Perfluorooctanoic acid" ~ "PFOA",
       PFAS_Abbrev == "Perfluorooctane sulfonic acid" ~ "PFOS",
-      PFAS_Abbrev == "N-EtFOSA" ~ "N-EtFOSA",
-      PFAS_Abbrev == "N-Ethyl-N-(2-hydroxyethyl)perfluorooctanesulfonamide" ~ "NEtFOSE",
+      PFAS_Abbrev == "N-EtFOSA" ~ "NEtFOSA",
+      PFAS_Abbrev == "N-Ethyl-N-(2-hydroxyethyl)perfluorooctanesulfonamide" ~ "NEtFOSE", 
       PFAS_Abbrev == "Perfluoro-1-nonanesulfonic acid" ~ "PFNS",
-      PFAS_Abbrev == "Potassium 9-chlorohexadecafluoro-3-oxanonane-1-sulfonate" ~ "9ClPF3ONS",
+      PFAS_Abbrev == "Potassium 9-chlorohexadecafluoro-3-oxanonane-1-sulfonate" ~ "9Cl-PF3ONS",
       PFAS_Abbrev == "N-ethyl perfluorooctanesulfonamidoacetic acid" ~ "NEtFOSAA",
       PFAS_Abbrev == "1-Decanesulfonic acid, 1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,10-heneicosafluoro-" ~ "PFDS",
-      PFAS_Abbrev == "2-(N-methylperfluoro-1-octanesulfonamido)-ethanol" ~ "N-MeFOSE",
+      PFAS_Abbrev == "2-(N-methylperfluoro-1-octanesulfonamido)-ethanol" ~ "NMeFOSE",
       PFAS_Abbrev == "ADONA" ~ "ADONA",
       PFAS_Abbrev == "Perfluorododecanesulfonic acid" ~ "PFDoS",
       PFAS_Abbrev == "N-methyl perfluorooctanesulfonamidoacetic acid" ~ "NMeFOSAA",
-      PFAS_Abbrev == "GenX" ~ "GenX",
+      PFAS_Abbrev == "GenX" ~ "HFPO-DA",
       PFAS_Abbrev == "11-chloroeicosafluoro-3-oxaundecane-1-sulfonic acid" ~ "11Cl-PF3OUdS",
       PFAS_Abbrev == "6:2 FTS" ~ "6:2 FTS",
       PFAS_Abbrev == "NMeFOSA" ~ "NMeFOSA",
@@ -400,15 +400,15 @@ WQP_Wells_Merged_10 <- WQP_Wells_Merged_9 %>%
       PFAS_Abbrev == "Octanoic acid, 4,4,5,5,6,6,7,7,8,8,8-undecafluoro-" ~ "5:3 FTCA",
       PFAS_Abbrev == "Decanoic acid, 4,4,5,5,6,6,7,7,8,8,9,9,10,10,10-pentadecafluoro-" ~ "7:3 FTCA",
       PFAS_Abbrev == "Sodium Perfluorononanesulfonate" ~ "PFNS",
-      PFAS_Abbrev == "9-Chlorohexadecafluoro-3-oxanone-1-sulfonic acid" ~ "9ClPF3ONS",
+      PFAS_Abbrev == "9-Chlorohexadecafluoro-3-oxanone-1-sulfonic acid" ~ "9Cl-PF3ONS",
       PFAS_Abbrev == "Perfluoro(4-methoxybutanoic) acid" ~ "PFMBA",
       PFAS_Abbrev == "1-Hexanesulfonic acid, 3,3,4,4,5,5,6,6,6-nonafluoro-***retired***use Fluorotelomer sulfonate 4:2" ~ "4:2 FTS",
       PFAS_Abbrev == "Perfluoro(2-ethoxyethane)sulfonic acid" ~ "PFEESA",
       PFAS_Abbrev == "Perfluoro-3-methoxypropanoic acid" ~ "PFMPA",
-      PFAS_Abbrev == "Hexanoic acid, 4,4,5,5,6,6,6-heptafluoro-***retired***use 3:3 Fluorotelomer carboxylic acid" ~ "3:3FTCA",
+      PFAS_Abbrev == "Hexanoic acid, 4,4,5,5,6,6,6-heptafluoro-***retired***use 3:3 Fluorotelomer carboxylic acid" ~ "3:3 FTCA",
       PFAS_Abbrev == "Perfluoro-1-dodecanesulfonate" ~ "PFDoS",
       PFAS_Abbrev == "1-Hexanesulfonic acid, 1,1,2,2,3,3,4,4,5,5,6,6,6-tridecafluoro-, ion(1-)" ~ "PFHxS",
-      PFAS_Abbrev == "3:3 Fluorotelomer carboxylic acid" ~ "3:3FTCA",
+      PFAS_Abbrev == "3:3 Fluorotelomer carboxylic acid" ~ "3:3 FTCA",
       # Default condition: if no match is found, keep the original value
       TRUE ~ PFAS_Abbrev
     )
@@ -512,7 +512,8 @@ desired_order <- c(
   "PFOS",
   "PFHxS",
   "PFNA",
-  "PFBS"
+  "PFBS",
+  "HFPO-DA"
 )
 
 
@@ -532,6 +533,7 @@ char_cols <- c("Dataset",
                "Medium",
                "Site",
                "Link",
+               "Sample ID",
                "Units")
 
 numeric_cols <- c("Latitude", "Longitude", "Number of samples")
@@ -576,6 +578,6 @@ WQP_Fish_2025 <- WQP_GW_SW_Fish_2025 |> filter(Medium == "Fish tissue")
 
 # Exporting the data
 library(writexl)
-write_xlsx(WQP_GW_2025, "03_CleanData/WQP_GW_2025.xlsx")
-write_xlsx(WQP_SW_2025, "03_CleanData/WQP_SW_2025.xlsx")
-write_xlsx(WQP_Fish_2025, "03_CleanData/WQP_Fish_2025.xlsx")
+write_xlsx(WQP_GW_2025, "03_Clean_Data/Groundwater/WQP_GW_2025.xlsx")
+write_xlsx(WQP_SW_2025, "03_Clean_Data/SurfaceWater/WQP_SW_2025.xlsx")
+write_xlsx(WQP_Fish_2025, "03_Clean_Data/FishTissue/WQP_Fish_2025.xlsx")

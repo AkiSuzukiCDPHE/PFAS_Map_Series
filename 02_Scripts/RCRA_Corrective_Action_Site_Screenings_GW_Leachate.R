@@ -46,7 +46,7 @@ RCRA_Clean1 <- RCRA_Clean %>%
          PFOS=Max_PFOS,
          PFOA=Max_PFOA,
          PFBS=Max_PFBS,
-         GenX=Max_GenX,
+         `HFPO-DA`=Max_GenX,
          PFHxS=Max_PFHxS,
          PFDA=Max_PFDA,
          PFNA=Max_PFNA) %>%
@@ -99,7 +99,7 @@ class(RCRA_Clean2$`Sample date`)
 
 # Format  all PFAS Columns as numeric and round to 1 decimal place
 
-PFAS_Analytes <- c("PFOS", "PFOA", "PFBS", "GenX", "PFHxS", "PFDA", "PFNA", "Sum of PFOA and PFOS")
+PFAS_Analytes <- c("PFOS", "PFOA", "PFBS", "HFPO-DA", "PFHxS", "PFDA", "PFNA", "Sum of PFOA and PFOS")
 
 # Round to one decimal place
 RCRA_Clean3 <- RCRA_Clean2 %>%
@@ -131,7 +131,7 @@ desired_order <- c(
   "PFHxS",
   "PFNA",
   "PFBS",
-  "GenX"
+  "HFPO-DA"
 )
 
 
@@ -148,7 +148,7 @@ RCRA_Leachate_2024 <- RCRA_Clean4 %>% filter(Medium=="Leachate")
 # Export the data frame as a cleaned and formatted dataset.
 
 library("writexl")
-write_xlsx(RCRA_Groundwater_2024,"03_Clean_Data/Groundwater/RCRA_Groundwater_2024")
+write_xlsx(RCRA_Groundwater_2024,"03_Clean_Data/Groundwater/RCRA_Groundwater_2025.xlsx")
 
-write_xlsx(RCRA_Leachate_2024, "03_Clean_Data/Leachate/RCRA_Leachate_2024")
+write_xlsx(RCRA_Leachate_2024, "03_Clean_Data/Leachate/RCRA_Leachate_2025.xlsx")
 

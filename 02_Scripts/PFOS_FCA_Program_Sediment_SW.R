@@ -56,6 +56,8 @@ PFOS_FCA_Sed_SW_2023_4$Result <- round(PFOS_FCA_Sed_SW_2023_4$Result, digits = 1
 class(PFOS_FCA_Sed_SW_2023_4$Result)
 
 
+
+
 # 3: Transposing the data ####
 
 
@@ -100,7 +102,7 @@ PFOS_FCA_Sed_SW_2023_Wide1 <- PFOS_FCA_Sed_SW_2023_Wide %>%
     Site = Waterbody,
     `Sample date` = Collected,
     `Sample ID` = Client_ID,
-    GenX = "HFPO-DA (GenX)",
+    `HFPO-DA` = "HFPO-DA (GenX)",
     ADONA = "4,8-Dioxa-3H-perfluorononanoic acid (ADONA)",
     NEtFOSAA = "N-ethylperfluorooctanesulfonamidoacetic acid (NEtFOSAA)",
     NFDHA = "NFDHA",
@@ -119,13 +121,13 @@ PFOS_FCA_Sed_SW_2023_Wide1 <- PFOS_FCA_Sed_SW_2023_Wide %>%
     PFHxA = "Perfluorohexanoic acid (PFHxA)",
     PFNS = "Perfluorononanesulfonic acid (PFNS)",
     PFNA = "Perfluorononanoic acid (PFNA)",
-    FOSA = "Perfluorooctanesulfonamide (FOSA)",
+    PFOSA = "Perfluorooctanesulfonamide (FOSA)",
     PFOS = "Perfluorooctanesulfonic acid (PFOS)",
     PFOA = "Perfluorooctanoic acid (PFOA)",
     PFPeS = "Perfluoropentanesulfonic acid (PFPeS)",
     PFPeA = "Perfluoropentanoic acid (PFPeA)",
     PFTeA = "Perfluorotetradecanoic acid (PFTeA)",
-    PFTriA = "Perfluorotridecanoic acid (PFTriA)",
+    PFTrDA = "Perfluorotridecanoic acid (PFTriA)",
     PFUnA = "Perfluoroundecanoic acid (PFUnA)",
     Notes = Matrix
   ) 
@@ -171,7 +173,7 @@ desired_order <- c(
   "PFHxS",
   "PFNA",
   "PFBS",
-  "GenX"
+  "HFPO-DA"
 )
 
 
