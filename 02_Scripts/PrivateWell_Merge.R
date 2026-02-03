@@ -19,7 +19,7 @@ str(WQCD_PW)
 PrivateWell_0 <- bind_rows(DoD_OffBase_PW, TAP_PW, WQCD_PW)
 
 
-column_names <- as.data.frame(colnames(PrivateWells))
+column_names <- as.data.frame(colnames(PrivateWell_0))
 colnames(PrivateWell_0)
 
 
@@ -86,6 +86,8 @@ PrivateWells_Groundwater_Final <- PrivateWells_Groundwater |>
                                                         n = 1,
                                                         with_ties = FALSE) |>  ungroup()
 
+# Remove 
+
 
 # 5: Export groundwater and private well data frames####
 
@@ -94,3 +96,4 @@ write_xlsx(
   PrivateWells_Groundwater_Final,
   "03_Clean_Data/PrivateWell/PrivateWell_Groundwater_2025.xlsx"
 )
+
